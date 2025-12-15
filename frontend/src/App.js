@@ -60,7 +60,7 @@ function App() {
                   onClick={handleCreateNew}
                 >
                   <span className="btn-icon">+</span>
-                  Create New Todo
+                  Create New Task
                 </button>
               </div>
             )}
