@@ -36,7 +36,7 @@ function App() {
       <header className="app-header">
         <div className="header-content">
           <h1 className="app-title">To-Do List App</h1>
-          <p className="app-subtitle">Manage your tasks efficiently</p>
+          <p className="app-subtitle">Manage your tasks efficiently Now</p>
         </div>
       </header>
 
