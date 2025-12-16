@@ -18,7 +18,8 @@ const TodoList = ({ onEdit, refreshTrigger }) => {
     try {
       setLoading(true);
       setError('');
-      const response = await axios.get('http://localhost:5000/api/todos');
+      const apiUrl = process.env.REACT_APP_API_URL;
+      const response = await axios.get(`${apiUrl}/api/todos`);
       setTodos(response.data.data || []);
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to fetch todos. Please try again.');
@@ -29,7 +30,8 @@ const TodoList = ({ onEdit, refreshTrigger }) => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/todos/${id}`);
+      const apiUrl = process.env.REACT_APP_API_URL;
+      await axios.delete(`${apiUrl}/api/todos/${id}`);
       fetchTodos();
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to delete todo. Please try again.');
@@ -38,7 +40,8 @@ const TodoList = ({ onEdit, refreshTrigger }) => {
 
   const handleToggleComplete = async (todo) => {
     try {
-      await axios.put(`http://localhost:5000/api/todos/${todo._id}`, {
+      const apiUrl = process.env.REACT_APP_API_URL;
+      await axios.put(`${apiUrl}/api/todos/${todo._id}`, {
         ...todo,
         completed: !todo.completed
       });
@@ -51,7 +54,8 @@ const TodoList = ({ onEdit, refreshTrigger }) => {
   const handleDownloadPDF = async () => {
     try {
       setError('');
-      const response = await axios.get('http://localhost:5000/api/todos/download/pdf', {
+      const apiUrl = process.env.REACT_APP_API_URL;
+      const response = await axios.get(`${apiUrl}/api/todos/download/pdf`, {
         responseType: 'blob'
       });
 

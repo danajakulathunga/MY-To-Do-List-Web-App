@@ -44,12 +44,13 @@ const TodoForm = ({ todo, onSave, onCancel }) => {
     }
 
     try {
+      const apiUrl = process.env.REACT_APP_API_URL;
       if (todo) {
         // Update existing todo
-        await axios.put(`http://localhost:5000/api/todos/${todo._id}`, formData);
+        await axios.put(`${apiUrl}/api/todos/${todo._id}`, formData);
       } else {
         // Create new todo
-        await axios.post('http://localhost:5000/api/todos', formData);
+        await axios.post(`${apiUrl}/api/todos`, formData);
       }
       
       if (onSave) {
