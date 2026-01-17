@@ -8,9 +8,34 @@ connectDB();
 
 const app = express();
 
-// CORS Configuration
+// CORS Configuration - Allow all Vercel deployments and localhost
 const corsOptions = {
-  origin: ["http://localhost:3000", "https://my-to-do-list-danaja.vercel.app"],
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+
+    // Allow localhost and all Vercel deployments
+    const allowedOrigins = [
+      "http://localhost:3000",
+      /^https:\/\/.*\.vercel\.app$/,
+      "https://my-to-do-list-danaja.vercel.app",
+    ];
+
+    // Check if origin matches any of the patterns
+    const isAllowed = allowedOrigins.some((pattern) => {
+      if (typeof pattern === "string") {
+        return pattern === origin;
+      }
+      // If it's a RegExp, test it
+      return pattern.test(origin);
+    });
+
+    if (isAllowed) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
   credentials: true,
   optionsSuccessStatus: 200,
 };
